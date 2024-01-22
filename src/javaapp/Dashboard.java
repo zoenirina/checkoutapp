@@ -32,7 +32,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         panelBorderRound1.setBackground(new java.awt.Color(255, 251, 251));
 
-        jScrollPane1.setBorder(null);
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(new javax.swing.border.MatteBorder(null));
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

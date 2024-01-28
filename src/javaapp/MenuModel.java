@@ -42,7 +42,7 @@ private String name;
 private MenuType type;
 
 public Icon toIcon(){
-        return new ImageIcon(getClass().getResource("/com/mypackage/icon/"+icon+".png"));
+        return new ImageIcon(getClass().getResource("/javaapp/icon/"+icon+".png"));
 }
 public static enum MenuType{
 TITLE,MENU,EMPTY

@@ -19,22 +19,22 @@ public class Menu extends javax.swing.JPanel {
     public Menu() {
         initComponents();
         setOpaque(false); 
-        menuList1.setOpaque(false);
+        menuList1.setOpaque(false); 
         init();
     }
 private void init(){
-menuList1.addItem(new MenuModel("7","Acceuil",MenuModel.MenuType.MENU));
+menuList1.addItem(new MenuModel("14","Acceuil",MenuModel.MenuType.MENU));
 //menuList1.addItem(new MenuModel("", "",MenuModel.MenuType.EMPTY));
 //
 //menuList1.addItem(new MenuModel("", "Vente",MenuModel.MenuType.TITLE));
-//menuList1.addItem(new MenuModel("7","Commande",MenuModel.MenuType.MENU));
-//menuList1.addItem(new MenuModel("8","Facture",MenuModel.MenuType.MENU));
-//
+menuList1.addItem(new MenuModel("8","Caisse",MenuModel.MenuType.MENU));
+menuList1.addItem(new MenuModel("personnel","Personnel",MenuModel.MenuType.MENU));
+
 //menuList1.addItem(new MenuModel("", "",MenuModel.MenuType.EMPTY));
 //
 //menuList1.addItem(new MenuModel("", "Produit",MenuModel.MenuType.TITLE));
-menuList1.addItem(new MenuModel("7", "Categorie",MenuModel.MenuType.MENU));
-menuList1.addItem(new MenuModel("7", "Stock",MenuModel.MenuType.MENU));
+menuList1.addItem(new MenuModel("user", "Comptes",MenuModel.MenuType.MENU));
+menuList1.addItem(new MenuModel("7", "Groupe",MenuModel.MenuType.MENU));
 }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +49,7 @@ menuList1.addItem(new MenuModel("7", "Stock",MenuModel.MenuType.MENU));
         jLabel1.setBackground(new java.awt.Color(241, 241, 241));
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("SUPERMARKET");
+        jLabel1.setText("MY BUSINESS");
 
         menuList1.setOpaque(false);
 
@@ -60,7 +60,7 @@ menuList1.addItem(new MenuModel("7", "Stock",MenuModel.MenuType.MENU));
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
             .addComponent(menuList1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -69,8 +69,8 @@ menuList1.addItem(new MenuModel("7", "Stock",MenuModel.MenuType.MENU));
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
-                .addComponent(menuList1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(307, Short.MAX_VALUE))
+                .addComponent(menuList1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(261, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -78,7 +78,7 @@ menuList1.addItem(new MenuModel("7", "Stock",MenuModel.MenuType.MENU));
 protected void paintChildren(Graphics grphcs){
     Graphics2D g2 =(Graphics2D) grphcs;
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    GradientPaint g = new GradientPaint(0,0,Color.decode("#7C1034"),0, getHeight(),Color.decode("#7C1034"));
+    GradientPaint g = new GradientPaint(0,0,Color.decode("#080436"),0, getHeight(),Color.decode("#080436"));
     // GradientPaint g = new GradientPaint(0,0,Color.decode("#0B4151"),0, getHeight(),Color.decode("#0B4151")); //GREENBLUE
   //  GradientPaint g = new GradientPaint(0,0,Color.decode("#122b3e"),0, getHeight(),Color.decode("#122b3e")); // NICE ONE  BLUE
   // GradientPaint g = new GradientPaint(0,0,Color.decode("#E4584B"),0, getHeight(),Color.decode("#E4584B")); //ORANGE

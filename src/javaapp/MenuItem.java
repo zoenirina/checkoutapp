@@ -46,7 +46,7 @@ public class MenuItem extends javax.swing.JPanel {
         iconItem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         iconItem.setForeground(new java.awt.Color(255, 255, 255));
 
-        nameItem.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 16)); // NOI18N
+        nameItem.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 14)); // NOI18N
         nameItem.setForeground(new java.awt.Color(255, 255, 255));
         nameItem.setText("Menu Name");
 
@@ -64,9 +64,9 @@ public class MenuItem extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(iconItem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameItem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(nameItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(iconItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents

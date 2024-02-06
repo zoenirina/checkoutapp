@@ -41,12 +41,12 @@ public class MenuItem extends javax.swing.JPanel {
         nameItem = new javax.swing.JLabel();
 
         setForeground(new java.awt.Color(207, 229, 255));
-        setPreferredSize(new java.awt.Dimension(168, 32));
+        setPreferredSize(new java.awt.Dimension(168, 40));
 
         iconItem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         iconItem.setForeground(new java.awt.Color(255, 255, 255));
 
-        nameItem.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 14)); // NOI18N
+        nameItem.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         nameItem.setForeground(new java.awt.Color(255, 255, 255));
         nameItem.setText("Menu Name");
 

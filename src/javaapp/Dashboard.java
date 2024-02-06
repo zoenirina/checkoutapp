@@ -2,12 +2,12 @@ package javaapp;
 
 import java.awt.Color;
 import javaapp.event.EventMenuSelected;
-import javaapp.form.Dashboard_Form;
-import javaapp.form.Form1;
-import javaapp.form.Form2;
-import javaapp.form.Form3;
-import javaapp.form.Form4;
-import javaapp.form.Form7;
+import javaapp.page.HomePage;
+import javaapp.page.Page1;
+import javaapp.page.Form2;
+import javaapp.page.Form3;
+import javaapp.page.Form4;
+import javaapp.page.Form7;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
@@ -25,12 +25,12 @@ public class Dashboard extends javax.swing.JFrame {
 //             JOptionPane.showMessageDialog( null, "index:"+index,"Sucess",JOptionPane.INFORMATION_MESSAGE);
             switch (index) {
                 case 0:
-                    setForm(new Dashboard_Form());
-                    title.setText(new Dashboard_Form().title);
+                    setForm(new HomePage());
+                    title.setText(new HomePage().title);
                     break;
                 case 1:
-                    setForm(new Form1());
-                    title.setText(new Form1().title);
+                    setForm(new Page1());
+                    title.setText(new Page1().title);
                     break;
                 case 2:
                     setForm(new Form7());
@@ -46,7 +46,7 @@ public class Dashboard extends javax.swing.JFrame {
 //             form4.newUser=true;
                     break;
                 case 5:
-                    setForm(new Form1());
+                    setForm(new Page1());
                     break;
                 default:
                     break;
@@ -54,7 +54,7 @@ public class Dashboard extends javax.swing.JFrame {
         }
       
         });
-        setForm(new Dashboard_Form());
+        setForm(new HomePage());
     }
     
     private void setForm(JComponent com){
@@ -98,6 +98,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         title.setForeground(new java.awt.Color(8, 4, 54));
+        title.setText("Acceuil");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

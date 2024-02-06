@@ -78,7 +78,7 @@ menuList1.addItem(new MenuModel("7", "Groupe",MenuModel.MenuType.MENU));
 protected void paintChildren(Graphics grphcs){
     Graphics2D g2 =(Graphics2D) grphcs;
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    GradientPaint g = new GradientPaint(0,0,Color.decode("#080436"),0, getHeight(),Color.decode("#080436"));
+    GradientPaint g = new GradientPaint(0,0,Color.decode("#080436"),0, getHeight(),Color.decode("#0B4151"));
     // GradientPaint g = new GradientPaint(0,0,Color.decode("#0B4151"),0, getHeight(),Color.decode("#0B4151")); //GREENBLUE
   //  GradientPaint g = new GradientPaint(0,0,Color.decode("#122b3e"),0, getHeight(),Color.decode("#122b3e")); // NICE ONE  BLUE
   // GradientPaint g = new GradientPaint(0,0,Color.decode("#E4584B"),0, getHeight(),Color.decode("#E4584B")); //ORANGE

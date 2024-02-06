@@ -1,9 +1,9 @@
 
-package javaapp.form;
+package javaapp.page;
 
-public class Form1 extends javax.swing.JPanel {
+public class Page1 extends javax.swing.JPanel {
 public String title="Autres";
-    public Form1() {
+    public Page1() {
         initComponents();
     }
 

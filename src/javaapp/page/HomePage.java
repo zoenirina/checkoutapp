@@ -1,9 +1,9 @@
 
-package javaapp.form;
+package javaapp.page;
 
-public class Dashboard_Form extends javax.swing.JPanel {
+public class HomePage extends javax.swing.JPanel {
 public String title="Acceuil";
-    public Dashboard_Form() {
+    public HomePage() {
         initComponents();
     }
 

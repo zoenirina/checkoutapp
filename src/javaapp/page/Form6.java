@@ -1,5 +1,5 @@
 
-package javaapp.form;
+package javaapp.page;
 
 public class Form6 extends javax.swing.JPanel {
 

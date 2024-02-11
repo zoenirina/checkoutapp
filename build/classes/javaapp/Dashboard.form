@@ -98,7 +98,9 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="title" min="-2" pref="287" max="-2" attributes="0"/>
-                          <EmptySpace pref="772" max="32767" attributes="0"/>
+                          <EmptySpace pref="552" max="32767" attributes="0"/>
+                          <Component id="datenow" min="-2" pref="208" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnlogout" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -106,10 +108,11 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="btnlogout" pref="29" max="32767" attributes="0"/>
                               <Component id="title" max="32767" attributes="0"/>
+                              <Component id="datenow" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
                       </Group>
@@ -136,6 +139,13 @@
                       <Color blue="36" green="4" red="8" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Acceuil"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="datenow">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Verdana" size="14" style="2"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>

@@ -62,7 +62,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="nombre_ligne" min="-2" pref="92" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="343" max="-2" attributes="0"/>
+                          <Component id="searchTerm" min="-2" pref="343" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btn_search" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
@@ -85,7 +85,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btn_search" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jTextField1" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="searchTerm" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="nombre_ligne" alignment="0" max="32767" attributes="0"/>
@@ -239,7 +239,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnnewuserActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="searchTerm">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Verdana" size="13" style="1"/>
@@ -264,6 +264,9 @@
               <Color blue="f3" green="ec" red="f0" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_searchActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="nombre_ligne">
           <Properties>
@@ -698,7 +701,7 @@
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="password2" alignment="0" max="32767" attributes="0"/>
                                   <Component id="password1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="nomGroupe1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="nomGroupe" alignment="0" max="32767" attributes="0"/>
                                   <Component id="username" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel11" alignment="0" min="-2" pref="328" max="-2" attributes="0"/>
                                   <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -718,14 +721,14 @@
                           <Component id="jLabel11" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="username" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="nomGroupe1" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="nomGroupe" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -752,18 +755,12 @@
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel2">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="e4" red="cc" type="rgb"/>
-                    </Property>
-                  </Properties>
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel6" min="-2" pref="650" max="-2" attributes="0"/>
                                   <Component id="jLabel14" min="-2" pref="799" max="-2" attributes="0"/>
@@ -774,7 +771,6 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -786,26 +782,6 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="jPanel3">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="36" green="4" red="8" type="rgb"/>
-                        </Property>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                    </Container>
                     <Component class="javax.swing.JLabel" name="jLabel6">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -868,7 +844,7 @@
                     <Property name="text" type="java.lang.String" value="R&#xf4;le"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="nomGroupe1">
+                <Component class="javax.swing.JComboBox" name="nomGroupe">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="33" red="33" type="rgb"/>
@@ -972,7 +948,7 @@
                       <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" min="-2" pref="270" max="-2" attributes="0"/>
-                          <Component id="btndelete" min="-2" pref="146" max="-2" attributes="0"/>
+                          <Component id="btn_delete" min="-2" pref="146" max="-2" attributes="0"/>
                           <Component id="jTextArea1" alignment="0" min="-2" pref="737" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -987,7 +963,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextArea1" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btndelete" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="btn_delete" min="-2" pref="42" max="-2" attributes="0"/>
                       <EmptySpace pref="48" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -1015,7 +991,7 @@
                 <Property name="text" type="java.lang.String" value="Cette action inclue une suppression d&#xe9;finitive et irreversible de toutes vos donn&#xe9;es con&#xe7;ernant ce &#xa;compte utilisateur"/>
               </Properties>
             </Component>
-            <Component class="javaapp.component.ButtonRadius" name="btndelete">
+            <Component class="javaapp.component.ButtonRadius" name="btn_delete">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="1f" green="b" red="ff" type="rgb"/>
@@ -1041,7 +1017,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btndeleteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_deleteActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

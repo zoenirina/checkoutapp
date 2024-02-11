@@ -48,7 +48,7 @@ public String title="Acceuil";
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));
         jLabel6.setText("Recette");
 
-        jLabel11.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(51, 51, 51));
         jLabel11.setText("34000 Ar");
 
@@ -93,7 +93,7 @@ public String title="Acceuil";
         jLabel7.setForeground(new java.awt.Color(102, 102, 102));
         jLabel7.setText("Article en stock");
 
-        jLabel9.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("40");
 
@@ -177,12 +177,12 @@ public String title="Acceuil";
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(8, 4, 54));
-        jLabel1.setText("Bonjour !");
+        jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(98, 77, 235));
+        jLabel1.setText("Salut, Solofo!");
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(8, 4, 54));
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(98, 77, 235));
         jLabel2.setText("Voici quelques chiffres clés à propos de votre Business.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

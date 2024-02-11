@@ -13,7 +13,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Form7 extends javax.swing.JPanel {
 
@@ -45,7 +47,7 @@ public class Form7 extends javax.swing.JPanel {
     public Form7() {
         initComponents();
         formPanel.setVisible(false);
-        createuserpanel.setVisible(false);
+        
         connectiondb(); 
         query ="select * from profile";
         refreshTable();
@@ -78,7 +80,7 @@ public class Form7 extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnnewuser = new javaapp.component.ButtonRadius();
-        jTextField1 = new javax.swing.JTextField();
+        searchTerm = new javax.swing.JTextField();
         btn_search = new javaapp.component.ButtonRadius();
         nombre_ligne = new javax.swing.JLabel();
         formPanel = new javax.swing.JPanel();
@@ -102,13 +104,12 @@ public class Form7 extends javax.swing.JPanel {
         createuserpanel = new javax.swing.JLayeredPane();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        nomGroupe1 = new javax.swing.JComboBox<>();
+        nomGroupe = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         password1 = new javax.swing.JPasswordField();
         jLabel18 = new javax.swing.JLabel();
@@ -118,7 +119,7 @@ public class Form7 extends javax.swing.JPanel {
         panelBorderRound2 = new javaapp.component.PanelBorderRound();
         jLabel3 = new javax.swing.JLabel();
         jTextArea1 = new javax.swing.JTextArea();
-        btndelete = new javaapp.component.ButtonRadius();
+        btn_delete = new javaapp.component.ButtonRadius();
 
         listPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -173,13 +174,18 @@ public class Form7 extends javax.swing.JPanel {
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        searchTerm.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
 
         btn_search.setBorder(null);
         btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapp/icon/search.png"))); // NOI18N
         btn_search.setBorderColor(new java.awt.Color(240, 240, 240));
         btn_search.setColorClick(new java.awt.Color(255, 255, 255));
         btn_search.setColorOver(new java.awt.Color(240, 236, 243));
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
 
         nombre_ligne.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         nombre_ligne.setForeground(new java.awt.Color(51, 51, 51));
@@ -201,7 +207,7 @@ public class Form7 extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listPanelLayout.createSequentialGroup()
                         .addComponent(nombre_ligne, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchTerm, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(57, Short.MAX_VALUE))
@@ -219,7 +225,7 @@ public class Form7 extends javax.swing.JPanel {
                 .addGroup(listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(listPanelLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchTerm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(nombre_ligne, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -338,21 +344,6 @@ public class Form7 extends javax.swing.JPanel {
         jLabel11.setForeground(new java.awt.Color(0, 0, 102));
         jLabel11.setText("Assigner un compte utilisateur");
 
-        jPanel2.setBackground(new java.awt.Color(204, 228, 255));
-
-        jPanel3.setBackground(new java.awt.Color(8, 4, 54));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 8, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 51));
         jLabel6.setText("Pour accéder à l'application, un membre du personnel a besoin d'un compte utilisateur.");
@@ -366,8 +357,7 @@ public class Form7 extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -375,7 +365,6 @@ public class Form7 extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
@@ -397,7 +386,7 @@ public class Form7 extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(51, 51, 51));
         jLabel16.setText("Rôle");
 
-        nomGroupe1.setForeground(new java.awt.Color(51, 51, 51));
+        nomGroupe.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(51, 51, 51));
@@ -420,7 +409,7 @@ public class Form7 extends javax.swing.JPanel {
         createuserpanel.setLayer(jLabel15, javax.swing.JLayeredPane.DEFAULT_LAYER);
         createuserpanel.setLayer(username, javax.swing.JLayeredPane.DEFAULT_LAYER);
         createuserpanel.setLayer(jLabel16, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        createuserpanel.setLayer(nomGroupe1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        createuserpanel.setLayer(nomGroupe, javax.swing.JLayeredPane.DEFAULT_LAYER);
         createuserpanel.setLayer(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
         createuserpanel.setLayer(password1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         createuserpanel.setLayer(jLabel18, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -436,7 +425,7 @@ public class Form7 extends javax.swing.JPanel {
                     .addGroup(createuserpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(password2, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(password1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nomGroupe1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nomGroupe, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(username, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -452,14 +441,14 @@ public class Form7 extends javax.swing.JPanel {
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nomGroupe1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nomGroupe, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -582,17 +571,17 @@ public class Form7 extends javax.swing.JPanel {
         jTextArea1.setRows(5);
         jTextArea1.setText("Cette action inclue une suppression définitive et irreversible de toutes vos données conçernant ce \ncompte utilisateur");
 
-        btndelete.setBackground(new java.awt.Color(255, 11, 31));
-        btndelete.setBorder(null);
-        btndelete.setForeground(new java.awt.Color(255, 255, 255));
-        btndelete.setText("Supprimer");
-        btndelete.setBorderColor(new java.awt.Color(255, 0, 0));
-        btndelete.setColor(new java.awt.Color(255, 11, 31));
-        btndelete.setColorClick(new java.awt.Color(255, 11, 31));
-        btndelete.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
-        btndelete.addActionListener(new java.awt.event.ActionListener() {
+        btn_delete.setBackground(new java.awt.Color(255, 11, 31));
+        btn_delete.setBorder(null);
+        btn_delete.setForeground(new java.awt.Color(255, 255, 255));
+        btn_delete.setText("Supprimer");
+        btn_delete.setBorderColor(new java.awt.Color(255, 0, 0));
+        btn_delete.setColor(new java.awt.Color(255, 11, 31));
+        btn_delete.setColorClick(new java.awt.Color(255, 11, 31));
+        btn_delete.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btndeleteActionPerformed(evt);
+                btn_deleteActionPerformed(evt);
             }
         });
 
@@ -604,7 +593,7 @@ public class Form7 extends javax.swing.JPanel {
                 .addGap(72, 72, 72)
                 .addGroup(panelBorderRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -616,7 +605,7 @@ public class Form7 extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -664,6 +653,7 @@ public class Form7 extends javax.swing.JPanel {
 
     private void btnnewuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewuserActionPerformed
         listPanel.setVisible(false);
+        createuserpanel.setVisible(true);
         setEmptyForm();
         formPanel.setVisible(true);
         btnSaveState="insert";
@@ -675,23 +665,26 @@ public class Form7 extends javax.swing.JPanel {
 //            listPanel.setVisible(true);
 //        formPanel.setVisible(false);
 //        refreshTable();
+    
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         DefaultTableModel model=(DefaultTableModel) table.getModel(); 
         setRowSelected(table.getSelectedRow());
         setIdSelected(model.getValueAt(rowSelected,0).toString());
         listPanel.setVisible(false);
         formPanel.setVisible(true);
-        btnSaveState="update";
-//        nom.setText(model.getValueAt(rowSelected,1).toString());
-        nom.setText(model.getValueAt(rowSelected, 2).toString());
-        prenom.setText(model.getValueAt(rowSelected, 3).toString());
+        
+        btnSaveState="update";//il s'agit d'une modification
+        //matricule.setText(model.getValueAt(rowSelected,1).toString());
+        nom.setText(model.getValueAt(rowSelected, 1).toString());
+        prenom.setText(model.getValueAt(rowSelected, 2).toString());
+        date_naiss.setText(model.getValueAt(rowSelected, 3).toString());
         fonction.setText(model.getValueAt(rowSelected, 4).toString());
         tel.setText(model.getValueAt(rowSelected, 5).toString());
         adresse.setText(model.getValueAt(rowSelected, 6).toString());
        
     }//GEN-LAST:event_tableMouseClicked
 
-    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         try {
             stm = conn.prepareStatement("delete from utilisateur where idUtilisateur=?"); 
             stm.setString(1, getIdSelected());
@@ -699,7 +692,7 @@ public class Form7 extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(Form7.class.getName()).log(Level.SEVERE, null, ex);
         }        
-    }//GEN-LAST:event_btndeleteActionPerformed
+    }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
         listPanel.setVisible(true);
@@ -710,21 +703,48 @@ public class Form7 extends javax.swing.JPanel {
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
 
         try {
+            if(checkEmptyForm()){
+            DateTimeFormatter dtFormat;//Récupération de la date d'enregistrement
+            dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime datetimenow = LocalDateTime.now();
+            
             connectiondb();
+ 
             switch(btnSaveState){
                 case "insert":
-                stm = conn.prepareStatement("insert into utilisateur(idUtilisateur,nomUtilisateur,password, idGroupe,dateCreation,actif) values (null,?,?,?,?,'non')");
+                stm = conn.prepareStatement("insert into profile(nom,prenom,dateNaiss, fonction,tel,adresse) values (?,?,?,?,?,?)");//enregistrement du nouvel employé
                 stm.setString(1, nom.getText());
-                stm.setString(2, nom.getText());
-                stm.setString(3, nom.getText());
-                stm.setString(4, nom.getText());
+                stm.setString(2, prenom.getText());
+                stm.setString(3, date_naiss.getText());
+                stm.setString(4, fonction.getText());
+                stm.setString(5, tel.getText());
+                stm.setString(6, adresse.getText());
+                stm.executeQuery();
+                
+                String idGroupe = null;
+                stm = conn.prepareStatement("SELECT idGroupe FROM groupe where nomGroupe=?");// récuperation de tout type de groupe existante
+                stm.setString(1, (String) nomGroupe.getSelectedItem());
+                resultSet = stm.executeQuery();
+                while (resultSet.next()) {
+                    idGroupe =  resultSet.getString("idGroupe");
+                }
+                
+                stm = conn.prepareStatement("insert into utilisateur(idUtilisateur,nomUtilisateur,password,idGroupe,dateCreation,actif) values (null,?,?,?,?,'inactif')");//enregistrement du nouveau compte
+                stm.setString(1, username.getText());
+                stm.setString(2, new String(password1.getPassword()));
+                stm.setString(3, idGroupe);
+                stm.setString(4, dtFormat.format(datetimenow));
+                stm.executeQuery();
                 break;
                 case "update":
-                stm = conn.prepareStatement("update utilisateur set nomUtilisateur=?, password=?,  idGroupe=? where idUtilisateur=?");
+                stm = conn.prepareStatement("update utilisateur set nom=?, prenom=?,  dateNaiss=?,fonction=?,tel=?,adresse=?, where idProfile=?");
                 stm.setString(1, nom.getText());
-                stm.setString(2, nom.getText());
-                stm.setString(3, nom.getText());
-                stm.setString(4, nom.getText());
+                stm.setString(2, prenom.getText());
+                stm.setString(3, date_naiss.getText());
+                stm.setString(4, fonction.getText());
+                stm.setString(5, tel.getText());
+                stm.setString(6, adresse.getText());
+                stm.setString(6, getIdSelected());
                 break;
             }
 
@@ -732,15 +752,22 @@ public class Form7 extends javax.swing.JPanel {
             conn.close();
             JOptionPane.showMessageDialog(null, "insertion réussie!","Sucess",JOptionPane.INFORMATION_MESSAGE);
             refreshTable();
+            }else{
+            JOptionPane.showMessageDialog(null, "Veuillez remplir correctement tous les champs","Error",JOptionPane.ERROR_MESSAGE);
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(Form2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_saveActionPerformed
+
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        refreshTable();
+    }//GEN-LAST:event_btn_searchActionPerformed
  
     private void refreshTable(){
-        String column[]= {"Matricule","Nom","Prénom","Fonction","Contact","Adresse"};
-        Object[] data = new Object[6];
+        String column[]= {"Matricule","Nom","Prénom","Date de naissance","Fonction","Contact","Adresse"};
+        Object[] data = new Object[7];
         DefaultTableModel model = new DefaultTableModel(null,column);
         try{
             connectiondb();
@@ -751,14 +778,22 @@ public class Form7 extends javax.swing.JPanel {
                 data[0]=resultSet.getInt("idProfile");
                 data[1]=resultSet.getString("nom");
                 data[2]=resultSet.getString("prenom");
-                data[3]=resultSet.getString("fonction");
-                data[4]=resultSet.getString("tel");
-                data[5]=resultSet.getString("adresse");
+                data[3]=resultSet.getString("dateNaiss");
+                data[4]=resultSet.getString("fonction");
+                data[5]=resultSet.getString("tel");
+                data[6]=resultSet.getString("adresse");
                 model.addRow(data);
             }
-       table.setModel(model);
+           if(searchTerm.getText() == null){
+               TableRowSorter<DefaultTableModel> sorter= new TableRowSorter<>(model);               
+               sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchTerm));
+               table.setRowSorter(sorter);
+           }else{
+               table.setModel(model);
+           }
+        
         conn.close();
-
+        rowcount();
     } catch (SQLException ex) {
             Logger.getLogger(Form7.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -771,32 +806,41 @@ public class Form7 extends javax.swing.JPanel {
         fonction.setText("");
         adresse.setText("");
     }
-        private void checkEmptyForm(){
-//     if((username.getText() == "") || (nomGroupe.getSelectedItem() == "") || (password1.getPassword() == "") || (password2.getPassword() == "")){
-//        
-//        }
-    }
+        
+   // vérification de tous les champs
+   private boolean checkEmptyForm(){
+        if( nom.getText().isEmpty() && prenom.getText().isEmpty() && date_naiss.getText().isEmpty() && tel.getText().isEmpty() && tel.getText().isEmpty() && adresse.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Veullez remplir préalablement tous les champs","Error",JOptionPane.INFORMATION_MESSAGE); 
+        return true;
+        }else{
+        return false;
+        }
+}
+    
     private void setInputSelect(){
-//            try {
-//                connectiondb();
-//                PreparedStatement preparedStatement = conn.prepareStatement("SELECT idGroupe,nomGroupe FROM groupe");
-//                ResultSet resultSet = preparedStatement.executeQuery();
-//                while (resultSet.next()) {
-//                    nomGroupe.addItem(resultSet.getString("nomGroupe"));
-//                }
-//                conn.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+            try {
+                connectiondb();
+                PreparedStatement preparedStatement = conn.prepareStatement("SELECT idGroupe,nomGroupe FROM groupe");
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    nomGroupe.addItem(resultSet.getString("nomGroupe"));
+                }
+                conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void rowcount(){
+    nombre_ligne.setText("Nombre:"+ table.getRowCount());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adresse;
     private javaapp.component.ButtonRadius btn_back;
     private javaapp.component.ButtonRadius btn_cancel;
+    private javaapp.component.ButtonRadius btn_delete;
     private javaapp.component.ButtonRadius btn_save;
     private javaapp.component.ButtonRadius btn_search;
-    private javaapp.component.ButtonRadius btndelete;
     private javaapp.component.ButtonRadius btnnewuser;
     private javax.swing.JLayeredPane createuserpanel;
     private javax.swing.JTextField date_naiss;
@@ -821,13 +865,11 @@ public class Form7 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javaapp.component.PanelBorderRound listPanel;
     private javax.swing.JTextField nom;
-    private javax.swing.JComboBox<String> nomGroupe1;
+    private javax.swing.JComboBox<String> nomGroupe;
     private javax.swing.JLabel nombre_ligne;
     private javaapp.component.PanelBorderRound panelBorderRound1;
     private javaapp.component.PanelBorderRound panelBorderRound2;
@@ -835,6 +877,7 @@ public class Form7 extends javax.swing.JPanel {
     private javax.swing.JPasswordField password2;
     private javax.swing.JTextField prenom;
     private javax.swing.JScrollPane scrollTable;
+    private javax.swing.JTextField searchTerm;
     private javaapp.component.Table table;
     private javax.swing.JTextField tel;
     private javax.swing.JTextField username;

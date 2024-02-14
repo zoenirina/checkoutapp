@@ -1,6 +1,8 @@
 package javaapp;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,25 +76,24 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBorderRound2 = new javaapp.component.PanelBorderRound();
+        mainpanel = new javaapp.component.PanelBorderRound();
         menu = new javaapp.Menu();
-        panelBorderRound3 = new javaapp.component.PanelBorderRound();
+        header = new javaapp.component.PanelBorderRound();
         jPanel1 = new javax.swing.JPanel();
         btnlogout = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         datenow = new javax.swing.JLabel();
+        btn_agrandir = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        panelBorderRound2.setBackground(new java.awt.Color(248, 248, 248));
-        panelBorderRound2.setBorder(new javax.swing.border.MatteBorder(null));
-        panelBorderRound2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        panelBorderRound2.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 930));
+        mainpanel.setBackground(new java.awt.Color(255, 255, 255));
+        mainpanel.setBorder(new javax.swing.border.MatteBorder(null));
 
-        panelBorderRound3.setBackground(new java.awt.Color(255, 255, 255));
+        header.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -109,6 +110,13 @@ public class Dashboard extends javax.swing.JFrame {
 
         datenow.setFont(new java.awt.Font("Verdana", 2, 14)); // NOI18N
 
+        btn_agrandir.setText("jButton1");
+        btn_agrandir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agrandirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,7 +124,9 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 552, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 406, Short.MAX_VALUE)
+                .addComponent(btn_agrandir)
+                .addGap(46, 46, 46)
                 .addComponent(datenow, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnlogout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,26 +136,28 @@ public class Dashboard extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnlogout, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnlogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_agrandir))
                     .addComponent(datenow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panelBorderRound3Layout = new javax.swing.GroupLayout(panelBorderRound3);
-        panelBorderRound3.setLayout(panelBorderRound3Layout);
-        panelBorderRound3Layout.setHorizontalGroup(
-            panelBorderRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        panelBorderRound3Layout.setVerticalGroup(
-            panelBorderRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorderRound3Layout.createSequentialGroup()
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        panelBorderRound2.add(panelBorderRound3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 1130, 60));
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jScrollPane3.setBackground(new java.awt.Color(219, 229, 255));
         jScrollPane3.setBorder(null);
@@ -155,17 +167,36 @@ public class Dashboard extends javax.swing.JFrame {
         mainPanel.setLayout(new java.awt.BorderLayout());
         jScrollPane3.setViewportView(mainPanel);
 
-        panelBorderRound2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 1120, 870));
+        javax.swing.GroupLayout mainpanelLayout = new javax.swing.GroupLayout(mainpanel);
+        mainpanel.setLayout(mainpanelLayout);
+        mainpanelLayout.setHorizontalGroup(
+            mainpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainpanelLayout.createSequentialGroup()
+                .addGap(240, 240, 240)
+                .addComponent(jScrollPane3))
+            .addGroup(mainpanelLayout.createSequentialGroup()
+                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        mainpanelLayout.setVerticalGroup(
+            mainpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainpanelLayout.createSequentialGroup()
+                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane3))
+            .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorderRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBorderRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -180,6 +211,21 @@ public class Dashboard extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_btnlogoutMouseClicked
 
+    private void btn_agrandirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agrandirActionPerformed
+        
+        this.setPreferredSize(new Dimension(1920,1060));
+        this.setSize(new Dimension(1920,1060));
+        mainpanel.setPreferredSize(new Dimension(1920,1060));
+        mainpanel.setSize(new Dimension(1920,1060));
+        mainPanel.setSize(new Dimension(this.getWidth()-menu.getWidth(),getHeight()-header.getHeight()));
+        header.setSize(new Dimension(this.getWidth()-menu.getWidth(),400));
+        this.setLocationRelativeTo(null);
+        menu.setSize(new Dimension(menu.getWidth(),this.getHeight()));
+        this.setLayout(null);
+        
+        
+    }//GEN-LAST:event_btn_agrandirActionPerformed
+
     public static void main(String args[]) {
  
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -190,14 +236,15 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_agrandir;
     private javax.swing.JLabel btnlogout;
     private javax.swing.JLabel datenow;
+    private javaapp.component.PanelBorderRound header;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel mainPanel;
+    private javaapp.component.PanelBorderRound mainpanel;
     private javaapp.Menu menu;
-    private javaapp.component.PanelBorderRound panelBorderRound2;
-    private javaapp.component.PanelBorderRound panelBorderRound3;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

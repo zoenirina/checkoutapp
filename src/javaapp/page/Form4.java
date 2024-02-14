@@ -28,7 +28,8 @@ public class Form4 extends javax.swing.JPanel {
     public boolean newUser;
       public  Connection conn = null;
      public  String url = "jdbc:sqlite:caisse.db";
-     public String  query ="select * from utilisateur";
+     public String   query ="select utilisateur.idUtilisateur as idUtilisateur,utilisateur.nomUtilisateur as nomUtilisateur,utilisateur.idProfile as idProfile,utilisateur.dateCreation as dateCreation,utilisateur.actif as actif,groupe.nomGroupe as nomGroupe from utilisateur,groupe where utilisateur.idGroupe=groupe.idGroupe";
+       
      private int rowSelected;
      private String idSelected = null;
      public PreparedStatement stm ;
@@ -41,7 +42,7 @@ public class Form4 extends javax.swing.JPanel {
         initComponents();
         formPanel.setVisible(false);
         connectiondb(); 
-        query ="select * from utilisateur";
+        query ="select utilisateur.idUtilisateur as idUtilisateur,utilisateur.idProfile as idProfile,utilisateur.nomUtilisateur as nomUtilisateur,utilisateur.dateCreation as dateCreation,utilisateur.actif as actif,groupe.nomGroupe as nomGroupe from utilisateur,groupe where utilisateur.idGroupe=groupe.idGroupe";
         refreshTable();
         setInputSelect();
        
@@ -93,6 +94,7 @@ public class Form4 extends javax.swing.JPanel {
         jTextArea1 = new javax.swing.JTextArea();
 
         listPanel.setBackground(new java.awt.Color(255, 255, 255));
+        listPanel.setPreferredSize(new java.awt.Dimension(1075, 710));
 
         scrollTable.setBackground(new java.awt.Color(255, 255, 255));
         scrollTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -169,7 +171,7 @@ public class Form4 extends javax.swing.JPanel {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         listPanelLayout.setVerticalGroup(
             listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +332,7 @@ public class Form4 extends javax.swing.JPanel {
                     .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
         panelBorderRound2Layout.setVerticalGroup(
             panelBorderRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,11 +366,11 @@ public class Form4 extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(listPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(formPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,20 +397,22 @@ public class Form4 extends javax.swing.JPanel {
 //        formPanel.setVisible(false);
 //        refreshTable();
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-        DefaultTableModel model=(DefaultTableModel) table.getModel(); 
-        setRowSelected(table.getSelectedRow());
-        setIdSelected(model.getValueAt(rowSelected,0).toString());
-        listPanel.setVisible(false);
+       listPanel.setVisible(false);
         formPanel.setVisible(true);
-        btnSaveState="update";
-        username.setText(model.getValueAt(rowSelected,1).toString());
-        nomGroupe.setSelectedItem(model.getValueAt(rowSelected, 2).toString());
-//        password.setText(model.getValueAt(rowSelected, 3).toString());
+        btnSaveState="update"; DefaultTableModel model=(DefaultTableModel) table.getModel(); 
+        
+        int i = table.getSelectedRow();
+        setIdSelected(model.getValueAt(i,0).toString());
+        
+        username.setText(model.getValueAt(i,1).toString());
+        nomGroupe.setSelectedItem(model.getValueAt(i, 3).toString());
+        matricule.setSelectedItem(model.getValueAt(i, 2).toString());
+//        nomGroupe.setSelectedItem(model.getValueAt(i, 3).toString());
 
   if(   "update".equals(btnSaveState)){
             try {
                 connectiondb();
-                stm = conn.prepareStatement("SELECT password FROM utilisateur where idUtilisateur=?");
+                stm = conn.prepareStatement("SELECT password,idGroupe FROM utilisateur where idUtilisateur=?");
                 stm.setString(1, getIdSelected());
 //                JOptionPane.showMessageDialog(null, getIdSelected(),"Sucess",JOptionPane.INFORMATION_MESSAGE); 
                 resultSet = stm.executeQuery();
@@ -472,8 +476,10 @@ public class Form4 extends javax.swing.JPanel {
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         try {
-            stm = conn.prepareStatement("delete from utilisateur where idUtilisateur=?"); 
-            stm.setString(1, getIdSelected());
+           connectiondb(); stm = conn.prepareStatement("delete from utilisateur where idUtilisateur=?"); 
+           
+            
+            stm.setString(1, idSelected);
             stm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Suppression réussie"+getIdSelected(),"Sucess",JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
@@ -488,8 +494,8 @@ public class Form4 extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_backActionPerformed
  
     private void refreshTable(){
-        String column[]= {"ID","Nom","Date de création","Status"};
-        Object[] data = new Object[4];
+        String column[]= {"ID","Nom utilisateur","Matricule","Rôle","Date de création","Status"};
+        Object[] data = new Object[6];
         DefaultTableModel model = new DefaultTableModel(null,column);
         try{
             connectiondb();
@@ -499,8 +505,10 @@ public class Form4 extends javax.swing.JPanel {
            while(resultSet.next()){
                 data[0]=resultSet.getString("idUtilisateur");
                 data[1]=resultSet.getString("nomUtilisateur");
-                data[2]=resultSet.getString("dateCreation");
-                data[3]=resultSet.getString("actif");
+                data[2]=resultSet.getString("idProfile");
+                data[3]=resultSet.getString("nomGroupe");
+                data[4]=resultSet.getString("dateCreation");
+                data[5]=resultSet.getString("actif");
                 model.addRow(data);
        };
        table.setModel(model);

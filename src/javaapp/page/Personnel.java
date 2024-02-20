@@ -17,7 +17,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-public class Form7 extends javax.swing.JPanel {
+public class Personnel extends javax.swing.JPanel {
 
     public boolean newUser;
      public  Connection conn = null;
@@ -31,7 +31,7 @@ public class Form7 extends javax.swing.JPanel {
      public String title="Pesonnel";
 //       public String query ="select * from utilisateur";
      
-    public Form7() {
+    public Personnel() {
         initComponents();
         formPanel.setVisible(false);
         connectiondb(); 
@@ -57,10 +57,10 @@ public class Form7 extends javax.swing.JPanel {
          try {
             conn = DriverManager.getConnection("jdbc:sqlite:caisse.db");
         } catch (SQLException ex) {
-            Logger.getLogger(Form7.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Personnel.class.getName()).log(Level.SEVERE, null, ex);
         }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Form7.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Personnel.class.getName()).log(Level.SEVERE, null, ex);
         }
    
     }
@@ -154,14 +154,13 @@ public class Form7 extends javax.swing.JPanel {
 
         jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
 
-        btn_add.setBackground(new java.awt.Color(255, 105, 82));
         btn_add.setBorder(null);
         btn_add.setForeground(new java.awt.Color(255, 255, 255));
         btn_add.setText("Ajouter");
-        btn_add.setBorderColor(new java.awt.Color(255, 105, 82));
-        btn_add.setColor(new java.awt.Color(255, 105, 82));
-        btn_add.setColorClick(new java.awt.Color(255, 105, 82));
-        btn_add.setColorOver(new java.awt.Color(255, 105, 82));
+        btn_add.setBorderColor(new java.awt.Color(248, 91, 50));
+        btn_add.setColor(new java.awt.Color(248, 91, 50));
+        btn_add.setColorClick(new java.awt.Color(248, 91, 50));
+        btn_add.setColorOver(new java.awt.Color(255, 51, 0));
         btn_add.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_add.setRadius(18);
         btn_add.addActionListener(new java.awt.event.ActionListener() {
@@ -706,7 +705,7 @@ public class Form7 extends javax.swing.JPanel {
             conn.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Form7.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Personnel.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }//GEN-LAST:event_btn_deleteActionPerformed
 
@@ -780,7 +779,7 @@ public class Form7 extends javax.swing.JPanel {
             refreshTable();
             
     } catch (SQLException ex) {
-            Logger.getLogger(Form2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_saveActionPerformed
 
@@ -818,7 +817,7 @@ public class Form7 extends javax.swing.JPanel {
         conn.close();
         rowcount();
     } catch (SQLException ex) {
-            Logger.getLogger(Form7.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Personnel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

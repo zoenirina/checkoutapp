@@ -13,7 +13,7 @@ import javaapp.swing.ScrollBar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Form2 extends javax.swing.JPanel {
+public class Groupe extends javax.swing.JPanel {
     Connection conn = null;
     public String url = "jdbc:sqlite:caisse.db";
     public String query=null;
@@ -23,7 +23,7 @@ public class Form2 extends javax.swing.JPanel {
     private String idSelected;
     public String btn_save_state= "insert";
     
-    public Form2() {
+    public Groupe() {
         initComponents();
         query="select * from groupe";
         refreshTable();
@@ -37,11 +37,11 @@ public class Form2 extends javax.swing.JPanel {
             try {
                 Class.forName("org.sqlite.JDBC");
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Form2.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
             }
             conn = DriverManager.getConnection(url);
         } catch (SQLException ex) {
-            Logger.getLogger(Form2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }  
     @SuppressWarnings("unchecked")
@@ -58,7 +58,7 @@ public class Form2 extends javax.swing.JPanel {
         btn_save = new javaapp.component.ButtonRadius();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        nbr_total = new javax.swing.JLabel();
+        nbr_ligne = new javax.swing.JLabel();
         nbr_administrateur = new javax.swing.JLabel();
         scrollTable = new javax.swing.JScrollPane();
         table = new javaapp.component.Table();
@@ -124,9 +124,9 @@ public class Form2 extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(0, 0, 102));
         jLabel7.setText("Liste des groupes existants");
 
-        nbr_total.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
-        nbr_total.setForeground(new java.awt.Color(51, 51, 51));
-        nbr_total.setText("Tous (2)");
+        nbr_ligne.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        nbr_ligne.setForeground(new java.awt.Color(51, 51, 51));
+        nbr_ligne.setText("Tous (2)");
 
         nbr_administrateur.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
         nbr_administrateur.setForeground(new java.awt.Color(102, 102, 102));
@@ -180,21 +180,21 @@ public class Form2 extends javax.swing.JPanel {
                         .addComponent(btn_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(panelBorderRound1Layout.createSequentialGroup()
                         .addGroup(panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelBorderRound1Layout.createSequentialGroup()
-                                .addComponent(nbr_total, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nbr_ligne, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(nbr_administrateur))
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, 0))
                     .addGroup(panelBorderRound1Layout.createSequentialGroup()
                         .addGroup(panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(scrollTable, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBorderRound1Layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(324, 688, Short.MAX_VALUE))
+                                .addGap(688, 688, 688))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelBorderRound1Layout.createSequentialGroup()
                                 .addGroup(panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,7 +210,7 @@ public class Form2 extends javax.swing.JPanel {
             panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorderRound1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelBorderRound1Layout.createSequentialGroup()
@@ -230,11 +230,11 @@ public class Form2 extends javax.swing.JPanel {
                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nbr_total, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nbr_ligne, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nbr_administrateur, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addComponent(scrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -251,7 +251,7 @@ public class Form2 extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(panelBorderRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -281,7 +281,7 @@ public class Form2 extends javax.swing.JPanel {
             refreshTable();
             
         } catch (SQLException ex) {
-            Logger.getLogger(Form2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
         
@@ -347,7 +347,7 @@ try{stm= conn.prepareStatement("delete from groupe where idGroupe=?");
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel nbr_administrateur;
-    private javax.swing.JLabel nbr_total;
+    private javax.swing.JLabel nbr_ligne;
     private javax.swing.JTextField nomGroupe;
     private javaapp.component.PanelBorderRound panelBorderRound1;
     private javax.swing.JScrollPane scrollTable;

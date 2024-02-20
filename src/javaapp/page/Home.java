@@ -1,9 +1,9 @@
 
 package javaapp.page;
 
-public class HomePage extends javax.swing.JPanel {
+public class Home extends javax.swing.JPanel {
 public String title="Acceuil";
-    public HomePage() {
+    public Home() {
         initComponents();
     }
 

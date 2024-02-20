@@ -39,10 +39,10 @@ public class Form3 extends javax.swing.JPanel {
          try {
             conn = DriverManager.getConnection("jdbc:sqlite:caisse.db");
         } catch (SQLException ex) {
-            Logger.getLogger(Form4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Form4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }
    
     }
@@ -453,7 +453,7 @@ public class Form3 extends javax.swing.JPanel {
             refreshTable();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Form2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Groupe.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btn_saveActionPerformed
@@ -489,7 +489,7 @@ public class Form3 extends javax.swing.JPanel {
         conn.close();
 
     } catch (SQLException ex) {
-            Logger.getLogger(Form4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

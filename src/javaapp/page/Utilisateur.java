@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Form4 extends javax.swing.JPanel {
+public class Utilisateur extends javax.swing.JPanel {
 
     public String getIdSelected() {
         return idSelected;
@@ -38,7 +38,7 @@ public class Form4 extends javax.swing.JPanel {
      public String title="Comptes utilisateus";
 //       public String query ="select * from utilisateur";
      
-    public Form4() {
+    public Utilisateur() {
         initComponents();
         formPanel.setVisible(false);
         connectiondb(); 
@@ -56,10 +56,10 @@ public class Form4 extends javax.swing.JPanel {
          try {
             conn = DriverManager.getConnection("jdbc:sqlite:caisse.db");
         } catch (SQLException ex) {
-            Logger.getLogger(Form4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Form4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }
    
     }
@@ -127,9 +127,10 @@ public class Form4 extends javax.swing.JPanel {
         scrollTable.setViewportView(table);
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setText("Liste des utilisateurs");
 
-        jSeparator1.setForeground(new java.awt.Color(51, 51, 51));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 102));
 
         btnnewuser.setBackground(new java.awt.Color(255, 105, 82));
         btnnewuser.setBorder(null);
@@ -158,15 +159,15 @@ public class Form4 extends javax.swing.JPanel {
         listPanelLayout.setHorizontalGroup(
             listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(listPanelLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap(56, Short.MAX_VALUE)
                 .addGroup(listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
                         .addGroup(listPanelLayout.createSequentialGroup()
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 566, Short.MAX_VALUE)
                             .addComponent(btnnewuser, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jSeparator1))
+                        .addComponent(jSeparator1)
+                        .addComponent(scrollTable))
                     .addGroup(listPanelLayout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -421,7 +422,7 @@ public class Form4 extends javax.swing.JPanel {
                 }
                 conn.close();
             } catch (SQLException ex) {
-                Logger.getLogger(Form4.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Utilisateur.class.getName()).log(Level.SEVERE, null, ex);
             }
             }
        
@@ -483,7 +484,7 @@ public class Form4 extends javax.swing.JPanel {
             stm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Suppression réussie"+getIdSelected(),"Sucess",JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
-            Logger.getLogger(Form4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }//GEN-LAST:event_btndeleteActionPerformed
 
@@ -515,7 +516,7 @@ public class Form4 extends javax.swing.JPanel {
         conn.close();
 
     } catch (SQLException ex) {
-            Logger.getLogger(Form4.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Utilisateur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

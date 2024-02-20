@@ -155,7 +155,7 @@ public Login() {
                         .addGap(40, 40, 40)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,7 +201,7 @@ public Login() {
               result =  prepare.executeQuery();    
               if(result.next()){
                    JOptionPane.showMessageDialog(null, "Bravo, vous avez réussie","Sucess",JOptionPane.INFORMATION_MESSAGE); 
-                   new Dashboard().setVisible(true);
+                   new MainFrame().setVisible(true);
                    this.setVisible(false);
                   }else{
                        JOptionPane.showMessageDialog(null, "Nom d'utilisateur ou mot de passe incorrect !, acces auto","Error",JOptionPane.INFORMATION_MESSAGE);  

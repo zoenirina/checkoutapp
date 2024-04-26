@@ -7,8 +7,7 @@ import java.util.logging.Logger;
 public class DBconnection {
    private static  Connection conn = null;
    private static String url = "jdbc:sqlite:/C://Users/ASUS/Documents/NetBeansProjects/JavaApp/caisse.db";
-//  public String user ="root";
-// public  String pwd ="";
+   
  public DBconnection(){
   
  }

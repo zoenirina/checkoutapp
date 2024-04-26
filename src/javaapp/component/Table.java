@@ -3,10 +3,14 @@ package javaapp.component;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class Table extends JTable{
+    private int selectedRow = -1;
+    
     public Table(){
         setShowHorizontalLines(true);
         setShowVerticalLines(false);
@@ -34,8 +38,10 @@ public class Table extends JTable{
                  com.setForeground(Color.decode("#333333"));
                  com.setFont(getFont().deriveFont(Font.PLAIN));
                 }
-                if(i%2 == 0){
-                   com.setBackground(Color.decode("#f2f2f6")); 
+                if (selectedRow == i) { // Vérifie si la ligne est celle sélectionnée
+                    com.setBackground(Color.decode("#FFC675")); // Changer la couleur de fond pour la ligne sélectionnée
+                } else if(i%2 == 0){
+                   com.setBackground(Color.decode("#EEF5FF")); 
                 }else{
                  com.setBackground(Color.WHITE); 
                 }
@@ -44,5 +50,16 @@ public class Table extends JTable{
             }
         
     });
+        
+      addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = rowAtPoint(e.getPoint());
+                if (row != selectedRow) {
+                    selectedRow = row;
+                    repaint(); // Redessine la table pour mettre à jour la couleur de fond
+                }
+            }
+        });  
     }
 }

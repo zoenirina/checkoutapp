@@ -11,11 +11,17 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-      Connection conn = null;
-     public String url = "jdbc:sqlite:caisse.db";
-     String sql="select * from utilisateur where nomUtilisateur=? and password=?";
-//     PreparedStatement prepare = null;
-     ResultSet result;
+    Connection conn = null;
+    public String url = "jdbc:sqlite:caisse.db";
+    String sql="select * from utilisateur where nomUtilisateur=? and password=?";
+    public PreparedStatement smt,smt2;
+    public ResultSet result;
+    UserType usertype;
+    boolean trouve=false;
+    String idUser;
+    String usernameValidated;
+    public int niveau;
+    private static MainFrame mainFrame;
      
  
 public Login() {
@@ -27,10 +33,8 @@ public Login() {
     public void connectiondb(){
         try {
              Class.forName("org.sqlite.JDBC");
-//              JOptionPane.showMessageDialog(null, "forme reussie","Sucess",JOptionPane.INFORMATION_MESSAGE); 
          try {
             conn = DriverManager.getConnection(url);
-//             JOptionPane.showMessageDialog(null, "driver reussie","Sucess",JOptionPane.INFORMATION_MESSAGE); 
         } catch (SQLException ex) {
              Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,11 +92,14 @@ public Login() {
                 btnLoginMouseClicked(evt);
             }
         });
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
+
+        username.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        username.setForeground(new java.awt.Color(102, 102, 102));
+        username.setSelectionColor(new java.awt.Color(153, 255, 255));
+
+        password.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        password.setForeground(new java.awt.Color(102, 102, 102));
+        password.setSelectionColor(new java.awt.Color(153, 255, 255));
 
         btn_close.setBackground(new java.awt.Color(255, 255, 255));
         btn_close.setBorder(null);
@@ -110,7 +117,7 @@ public Login() {
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Authentification");
+        jLabel3.setText("Connexion ");
 
         javax.swing.GroupLayout panelBorderRound1Layout = new javax.swing.GroupLayout(panelBorderRound1);
         panelBorderRound1.setLayout(panelBorderRound1Layout);
@@ -121,20 +128,22 @@ public Login() {
                     .addGroup(panelBorderRound1Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
                         .addGroup(panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelBorderRound1Layout.createSequentialGroup()
-                                .addGap(73, 73, 73)
-                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addGroup(panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panelBorderRound1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel4))))
                             .addGroup(panelBorderRound1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel4))
+                                .addGap(120, 120, 120)
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelBorderRound1Layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(153, 153, 153)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelBorderRound1Layout.createSequentialGroup()
                         .addGap(195, 195, 195)
                         .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -150,19 +159,19 @@ public Login() {
                 .addGap(51, 51, 51)
                 .addGroup(panelBorderRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBorderRound1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(41, 41, 41)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
+                        .addGap(41, 41, 41)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
                         .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(112, Short.MAX_VALUE))
@@ -188,77 +197,51 @@ public Login() {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLoginActionPerformed
-
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
               
-            try (PreparedStatement prepare = conn.prepareStatement(sql)){ 
-            prepare.setString(1, username.getText());
-            prepare.setString(2,new String(password.getPassword()));
-
-              result =  prepare.executeQuery();    
-              if(result.next()){
-                   JOptionPane.showMessageDialog(null, "Bravo, vous avez réussie","Sucess",JOptionPane.INFORMATION_MESSAGE); 
-                   new Dashboard().setVisible(true);
-                   this.setVisible(false);
+            try{ 
+                connectiondb();
+                smt = conn.prepareStatement("select groupe.idDroit as niveau,utilisateur.nomUtilisateur as nomUtilisateur,utilisateur.password as password,utilisateur.idUtilisateur as idUtilisateur  from utilisateur,groupe where utilisateur.idGroupe=groupe.idGroupe and utilisateur.nomUtilisateur=? and utilisateur.password=?");
+                smt.setString(1, username.getText());
+                smt.setString(2,new String(password.getPassword()));
+                result =  smt.executeQuery(); 
+                
+                if(result.next()){
+                    trouve=true;
+                    idUser=result.getString("idUtilisateur");
+                    niveau=result.getInt("niveau");
+                    usernameValidated=result.getString("nomUtilisateur");
                   }else{
                        JOptionPane.showMessageDialog(null, "Nom d'utilisateur ou mot de passe incorrect !, acces auto","Error",JOptionPane.INFORMATION_MESSAGE);  
                   }
+                result.close();
+                smt.close();
+                conn.close();
+                
+                if(trouve){
+                connectiondb();
+                usertype = new UserType(niveau,usernameValidated);               
+                smt2 = conn.prepareStatement("update utilisateur set status=? where idUtilisateur=?");
+                smt2.setInt(1,1);
+                smt2.setString(2,idUser);
+                smt2.executeUpdate();
+                smt2.close();
+                conn.close();
+                mainFrame = new MainFrame(usertype);
+                mainFrame.setVisible(true);
+                this.setVisible(false);
+                }
       
           } catch (SQLException ex) {
               Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
               JOptionPane.showMessageDialog(null, "Nom d'utilisateur ou mot de passe incorrect !, acces auto","Error",JOptionPane.INFORMATION_MESSAGE);  
           }
-  
-                  //requete non preparé  dispose();
-//        try { 
-//            sql +="where nomUtilisateur='"+username.getText()+"' and password='"+password.getPassword().toString()+"'";
-////            //prepared req
-////            prepare = conn.prepareStatement(sql);
-////            prepare.setString(1, username.getText());
-////            prepare.setString(2, password.getPassword().toString());
-//            
-////              st1 = conn.createStatement();
-////              result =  st1.executeQuery(sql);
-//              
-//              while(result.next()){
-//                  if(username.getText() == result.getString("nomUtilisateur") && password.getPassword().toString() == result.getString("password")){
-//                   JOptionPane.showMessageDialog(null, "Brav, vous avez réussie","Sucess",JOptionPane.INFORMATION_MESSAGE);  
-//                  }else{
-//                       JOptionPane.showMessageDialog(null, "Nom d'utilisateur ou mot de passe incorrect !, acces auto","Error",JOptionPane.INFORMATION_MESSAGE);  
-//                  }
-//      }
-//          } catch (SQLException ex) {
-//              Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//          }
-        
-//        JOptionPane.showMessageDialog(null, "aizoooooooo","Error",JOptionPane.INFORMATION_MESSAGE);  
-//        try {
-//             Class.forName("org.sqlite.JDBC");
-//             JOptionPane.showMessageDialog(null, "connexion forname reussie","success",JOptionPane.INFORMATION_MESSAGE); 
-//
-//    try {
-//        conn = DriverManager.getConnection(url);
-//         JOptionPane.showMessageDialog(null, "connexion drivermanager reussie","success",JOptionPane.INFORMATION_MESSAGE); 
-//    } catch (SQLException ex) {
-//        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//         JOptionPane.showMessageDialog(null, "connexion drivermanager échoué","success",JOptionPane.INFORMATION_MESSAGE); 
-//    }
-//   
-//      System.out.print("connexion success !");
-//      JOptionPane.showMessageDialog(null, "Votre username est"+username.getText()+"et votre mot de passe est "+password.getPassword().toString(),"Error",JOptionPane.INFORMATION_MESSAGE); 
-//}  catch (ClassNotFoundException ex) { 
-//             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//        JOptionPane.showMessageDialog(null, "classname non connecté"+ ex,"Error",JOptionPane.INFORMATION_MESSAGE);  
-//} 
-
 
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
         dispose();
+        mainFrame.dispose();
     }//GEN-LAST:event_btn_closeActionPerformed
 
     public static void main(String args[]) {

@@ -1,0 +1,383 @@
+SELECT 
+    p.id AS idProduit,
+    p.designation,
+    p.PU AS prix,
+p.refProduit ,
+    u.poids,
+    u.capacite,
+    (SELECT COALESCE(SUM(CASE WHEN m.sens = 'entrée' THEN m.quantite ELSE 0 END), 0) - COALESCE(SUM(CASE WHEN m.sens = 'sortie' THEN m.quantite ELSE 0 END), 0)
+     FROM mouvementStock m
+     WHERE m.idProduit = p.id AND m.idExercice = ?) AS quantite_stock
+FROM 
+    produits p
+JOIN 
+    uniteStockage u ON p.idUnite = u.id; // SELECT ALL PRODUCT STORAGE
+
+
+//FILTRE SELON LES MAGASIN
+SELECT 
+    p.id AS idProduit,
+    p.designation,
+    p.PU AS prix,
+    u.poids,
+    u.capacite,
+    (SELECT 
+        SUM(CASE 
+            WHEN m.sens = 'entrée' THEN m.quantite
+            WHEN m.sens = 'sortie' THEN -m.quantite
+            ELSE 0 
+        END)
+     FROM mouvementStock m
+     WHERE m.idProduit = p.id 
+       AND m.idExercice = ? 
+       AND m.idMagasin = ?) AS quantite_stock
+FROM 
+    produits p
+INNER JOIN 
+    uniteStockage u ON p.idUnite = u.id
+WHERE 
+    EXISTS (
+        SELECT 1 FROM mouvementStock m
+        WHERE m.idProduit = p.id
+          AND m.idExercice = ?
+          AND m.idMagasin = ?
+    );
+
+// etAt DE stock seLon idproduit idmagasin
+
+SELECT 
+    p.id AS idProduit,
+    p.designation,
+    p.PU AS prix,
+    u.poids,
+    u.capacite,
+    (SELECT 
+        SUM(CASE 
+            WHEN m.sens = 'entrée' THEN m.quantite
+            WHEN m.sens = 'sortie' THEN -m.quantite
+            ELSE 0 
+        END)
+     FROM mouvementStock m
+     WHERE m.idProduit = p.id 
+       AND m.idExercice = ? 
+       AND m.idMagasin = ?) AS quantite_stock
+FROM 
+    produits p
+INNER JOIN 
+    uniteStockage u ON p.idUnite = u.id
+WHERE 
+    p.id = ?;
+
+// selon idexercice et idproduit seulement
+
+SELECT 
+    p.id AS idProduit,
+    p.designation,
+    p.PU AS prix,
+    u.poids,
+    u.capacite,
+    (SELECT 
+        SUM(CASE 
+            WHEN m.sens = 'entrée' THEN m.quantite
+            WHEN m.sens = 'sortie' THEN -m.quantite
+            ELSE 0 
+        END)
+     FROM mouvementStock m
+     WHERE m.idProduit = p.id 
+       AND m.idExercice = ?) AS quantite_stock
+FROM 
+    produits p
+INNER JOIN 
+    uniteStockage u ON p.idUnite = u.id
+WHERE 
+    p.id = ?;
+
+//MOUVEMMENT STOCK
+
+String insertQuery = "INSERT INTO mouvementStock (description, idProduit, quantite, dateMouvement, idTypeMouvement, sens, idMagasin, idExercice, idCreateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+try (PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
+    pstmt.setString(1, "Description de l'exemple");
+    pstmt.setInt(2, 1); // ID du produit
+    pstmt.setInt(3, 100); // Quantité
+    pstmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now())); // Date du mouvement
+    pstmt.setInt(5, 1); // ID du type de mouvement
+    pstmt.setString(6, "entrée"); // Sens
+    pstmt.setInt(7, 1); // ID du magasin
+    pstmt.setInt(8, 1); // ID de l'exercice
+    pstmt.setInt(9, 1); // ID du créateur
+
+    int affectedRows = pstmt.executeUpdate();
+    if (affectedRows > 0) {
+        System.out.println("Une ligne a été insérée avec succès dans mouvementStock.");
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+
+
+// insertION DANS UNITESTOCKAGE ET PRODUIT
+String insertUniteQuery = "INSERT INTO uniteStockage (unite, poids, capacite, volume, longueur, package, labelle, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+try (PreparedStatement pstmt = conn.prepareStatement(insertUniteQuery, Statement.RETURN_GENERATED_KEYS)) {
+    pstmt.setInt(1, 1); // Unite
+    pstmt.setFloat(2, 2.5f); // Poids
+    pstmt.setFloat(3, 100.0f); // Capacité
+    pstmt.setFloat(4, 10.0f); // Volume
+    pstmt.setFloat(5, 20.0f); // Longueur
+    pstmt.setInt(6, 1); // Package
+    pstmt.setString(7, "Labelle exemple"); // Labelle
+    pstmt.setString(8, "Description exemple"); // Description
+
+    int affectedRows = pstmt.executeUpdate();
+    if (affectedRows > 0) {
+        try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                long idUnite = generatedKeys.getLong(1);
+                System.out.println("L'ID généré pour la nouvelle unité est : " + idUnite);
+
+                // Utiliser l'ID récupéré pour insérer dans la table produits
+                String insertProduitQuery = "INSERT INTO produits (designation, refProduit, idUnite, PU, dateCreation, dateModif, idEtat) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement pstmtProduit = conn.prepareStatement(insertProduitQuery)) {
+                    pstmtProduit.setString(1, "Designation exemple");
+                    pstmtProduit.setString(2, "REF123");
+                    pstmtProduit.setLong(3, idUnite); // Utilisation de l'ID d'unité généré
+                    pstmtProduit.setFloat(4, 99.99f); // Prix unitaire
+                    pstmtProduit.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now())); // Date de création
+                    pstmtProduit.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now())); // Date de modification
+                    pstmtProduit.setInt(7, 1); // ID de l'état
+
+                    pstmtProduit.executeUpdate();
+                    System.out.println("Une ligne a été insérée avec succès dans produits.");
+                }
+            }
+        }
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+
+//recuperer les donnee mouvement stock
+
+SELECT 
+    ms.*, 
+    p.designation AS nomProduit, 
+    tm.type AS typeMouvement
+FROM 
+    mouvementStock ms
+LEFT JOIN produits p ON ms.idProduit = p.id
+LEFT JOIN type_mouvement tm ON ms.idTypeMouvement = tm.code_type;
+
+
+// modifier en meme temps le produit et l'unité
+
+// Assumer que conn est votre objet Connection à la base de données.
+// Activer le mode manuel de gestion des transactions.
+try {
+    conn.setAutoCommit(false); // Commencer la transaction
+
+    // Étape 1: Mettre à jour la table `produit`.
+    String updateProduitQuery = "UPDATE produits SET designation = ?, refProduit = ?, PU = ?, dateModif = ? WHERE id = ?";
+    try (PreparedStatement pstmtProduit = conn.prepareStatement(updateProduitQuery)) {
+        pstmtProduit.setString(1, "Nouvelle Désignation");
+        pstmtProduit.setString(2, "NouvelleRef123");
+        pstmtProduit.setFloat(3, 99.99f); // Nouveau prix
+        pstmtProduit.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now())); // Date de modification
+        pstmtProduit.setInt(5, 1); // ID du produit à modifier
+
+        pstmtProduit.executeUpdate();
+    }
+
+    // Étape 2: Identifier l'`idUnite` pour ce produit et mettre à jour `uniteStockage`.
+    // Ceci peut être optimisé si vous avez déjà l'idUnite, éliminant la nécessité de le sélectionner.
+    int idUnite = 0;
+    String selectIdUniteQuery = "SELECT idUnite FROM produits WHERE id = ?";
+    try (PreparedStatement pstmtSelect = conn.prepareStatement(selectIdUniteQuery)) {
+        pstmtSelect.setInt(1, 1); // ID du produit
+        ResultSet rs = pstmtSelect.executeQuery();
+        if (rs.next()) {
+            idUnite = rs.getInt("idUnite");
+        }
+    }
+
+    // Si l'idUnite a été trouvé, mettre à jour la table `uniteStockage`.
+    if (idUnite > 0) {
+        String updateUniteQuery = "UPDATE uniteStockage SET unite = ?, poids = ?, capacite = ?, volume = ?, longueur = ?, package = ?, labelle = ?, description = ? WHERE id = ?";
+        try (PreparedStatement pstmtUnite = conn.prepareStatement(updateUniteQuery)) {
+            pstmtUnite.setInt(1, 2); // Unite
+            pstmtUnite.setFloat(2, 2.5f); // Poids
+            pstmtUnite.setFloat(3, 100.0f); // Capacité
+            pstmtUnite.setFloat(4, 10.0f); // Volume
+            pstmtUnite.setFloat(5, 20.0f); // Longueur
+            pstmtUnite.setInt(6, 1); // Package
+            pstmtUnite.setString(7, "Labelle Mis à Jour"); // Labelle
+            pstmtUnite.setString(8, "Description Mis à Jour"); // Description
+            pstmtUnite.setInt(9, idUnite);
+
+            pstmtUnite.executeUpdate();
+        }
+    }
+
+    conn.commit(); // Valider la transaction
+    System.out.println("La mise à jour des tables 'produits' et 'uniteStockage' a été effectuée avec succès.");
+} catch (SQLException e) {
+    try {
+        conn.rollback(); // En cas d'erreur, annuler la transaction
+        System.out.println("La transaction a été annulée.");
+    } catch (SQLException ex) {
+        System.out.println("Erreur lors de l'annulation de la transaction : " + ex.getMessage());
+    }
+    e.printStackTrace();
+} finally {
+    try {
+        conn.setAutoCommit(true); // Restaurer le mode de commit automatique
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+//récuperer tous les mouvement du stock dans un exercice préci
+String query = "SELECT ms.id, ms.description, ms.idProduit, ms.quantite, ms.dateMouvement, " +
+               "ms.idTypeMouvement, ms.sens, ms.idMagasin, ms.idExercice, ms.idCreateur, " +
+               "p.designation AS nomProduit, tm.type AS typeMouvement " +
+               "FROM mouvementStock ms " +
+               "INNER JOIN produits p ON ms.idProduit = p.id " +
+               "LEFT JOIN type_mouvement tm ON ms.idTypeMouvement = tm.code_type " +
+               "WHERE ms.idExercice = ? " +
+               "ORDER BY ms.dateMouvement";
+
+try (Connection conn = /* votre méthode pour obtenir une connexion */;
+     PreparedStatement pstmt = conn.prepareStatement(query)) {
+    
+    pstmt.setInt(1, /* l'ID de l'exercice spécifique */);
+
+    ResultSet rs = pstmt.executeQuery();
+    while (rs.next()) {
+        // Traiter chaque ligne du résultat ici
+        System.out.println("ID: " + rs.getInt("id") + ", Nom du Produit: " + rs.getString("nomProduit") + ", Type de Mouvement: " + rs.getString("typeMouvement"));
+        // Vous pouvez continuer à extraire d'autres champs de la même manière
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+
+// mouvement de stock selon idExercice et idMagasin
+String query = "SELECT ms.*, p.designation AS nomProduit, tm.type AS typeMouvement FROM mouvementStock ms LEFT JOIN produits p ON ms.idProduit = p.id LEFT JOIN type_mouvement tm ON ms.idTypeMouvement = tm.code_type WHERE ms.idExercice = ? AND ms.idMagasin = ? ORDER BY ms.dateMouvement;";
+
+try (Connection conn = DriverManager.getConnection(/* votre URL de connexion */, /* utilisateur */, /* mot de passe */);
+     PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+    pstmt.setInt(1, idExercice); // Remplacez idExercice par la valeur réelle
+    pstmt.setInt(2, idMagasin); // Remplacez idMagasin par la valeur réelle
+    
+    ResultSet rs = pstmt.executeQuery();
+    
+    while (rs.next()) {
+        // Traitez chaque ligne de résultat ici
+        // Par exemple, récupérez et imprimez le nom du produit et le type de mouvement
+        System.out.println("Produit: " + rs.getString("nomProduit") + ", Type de Mouvement: " + rs.getString("typeMouvement") + ", Quantité: " + rs.getInt("quantite"));
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+
+
+// mouvement stock filtre entre deux date
+
+// Supposons que vous avez déjà une connexion à votre base de données nommée "conn".
+
+String selectQuery = "SELECT ms.*, p.designation AS nom_produit, tm.type AS type_mouvement " +
+                     "FROM mouvementStock ms " +
+                     "INNER JOIN produits p ON ms.idProduit = p.id " +
+                     "LEFT JOIN type_mouvement tm ON ms.idTypeMouvement = tm.code_type " +
+                     "WHERE ms.idExercice = ? " +
+                     "AND ms.idMagasin = ? " +
+                     "AND ms.dateMouvement BETWEEN ? AND ? " +
+                     "ORDER BY ms.dateMouvement";
+
+try (PreparedStatement pstmt = conn.prepareStatement(selectQuery)) {
+    pstmt.setInt(1, idExercice); // Remplacez idExercice par votre valeur d'idExercice
+    pstmt.setInt(2, idMagasin); // Remplacez idMagasin par votre valeur d'idMagasin
+    pstmt.setTimestamp(3, Timestamp.valueOf(date1.atStartOfDay())); // Remplacez date1 par votre date de début
+    pstmt.setTimestamp(4, Timestamp.valueOf(date2.atStartOfDay())); // Remplacez date2 par votre date de fin
+
+    ResultSet rs = pstmt.executeQuery();
+    while (rs.next()) {
+        // Lire les données de chaque ligne
+        int id = rs.getInt("id");
+        String description = rs.getString("description");
+        int idProduit = rs.getInt("idProduit");
+        int quantite = rs.getInt("quantite");
+        Timestamp dateMouvement = rs.getTimestamp("dateMouvement");
+        int idTypeMouvement = rs.getInt("idTypeMouvement");
+        String sens = rs.getString("sens");
+        int idMagasin = rs.getInt("idMagasin");
+        int idExercice = rs.getInt("idExercice");
+        int idCreateur = rs.getInt("idCreateur");
+        String nomProduit = rs.getString("nom_produit"); // Le nom du produit récupéré grâce à la jointure
+        String typeMouvement = rs.getString("type_mouvement"); // Le type de mouvement récupéré grâce à la jointure
+
+        // Faire quelque chose avec les données récupérées...
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+
+// transfert de marchandise
+
+// Supposons que vous avez déjà une connexion à votre base de données nommée "conn".
+
+try {
+    conn.setAutoCommit(false); // Commencer la transaction
+
+    // 1. Insérer un mouvement de stock de sortie pour le premier magasin
+    String insertSortieQuery = "INSERT INTO mouvementStock (description, idProduit, quantite, dateMouvement, idTypeMouvement, sens, idMagasin, idExercice, idCreateur) " +
+                               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement pstmtSortie = conn.prepareStatement(insertSortieQuery)) {
+        pstmtSortie.setString(1, "Sortie de stock pour transfert");
+        pstmtSortie.setInt(2, idProduit); // Remplacez idProduit par l'ID du produit à transférer
+        pstmtSortie.setInt(3, quantite); // Remplacez quantite par la quantité à transférer
+        pstmtSortie.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+        pstmtSortie.setInt(5, idTypeMouvementSortie); // Remplacez idTypeMouvementSortie par l'ID du type de mouvement de sortie
+        pstmtSortie.setString(6, "sortie");
+        pstmtSortie.setInt(7, idMagasinSource); // Remplacez idMagasinSource par l'ID du magasin source
+        pstmtSortie.setInt(8, idExercice); // Remplacez idExercice par l'ID de l'exercice en cours
+        pstmtSortie.setInt(9, idCreateur); // Remplacez idCreateur par l'ID de l'utilisateur qui effectue le transfert
+
+        pstmtSortie.executeUpdate();
+    }
+
+    // 2. Insérer un mouvement de stock d'entrée pour le deuxième magasin
+    String insertEntreeQuery = "INSERT INTO mouvementStock (description, idProduit, quantite, dateMouvement, idTypeMouvement, sens, idMagasin, idExercice, idCreateur) " +
+                               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement pstmtEntree = conn.prepareStatement(insertEntreeQuery)) {
+        pstmtEntree.setString(1, "Entrée de stock pour transfert");
+        pstmtEntree.setInt(2, idProduit); // Remplacez idProduit par l'ID du produit à transférer
+        pstmtEntree.setInt(3, quantite); // Remplacez quantite par la quantité à transférer
+        pstmtEntree.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+        pstmtEntree.setInt(5, idTypeMouvementEntree); // Remplacez idTypeMouvementEntree par l'ID du type de mouvement d'entrée
+        pstmtEntree.setString(6, "entrée");
+        pstmtEntree.setInt(7, idMagasinDestination); // Remplacez idMagasinDestination par l'ID du magasin de destination
+        pstmtEntree.setInt(8, idExercice); // Remplacez idExercice par l'ID de l'exercice en cours
+        pstmtEntree.setInt(9, idCreateur); // Remplacez idCreateur par l'ID de l'utilisateur qui effectue le transfert
+
+        pstmtEntree.executeUpdate();
+    }
+
+    conn.commit(); // Valider la transaction
+    System.out.println("Le transfert de stock a été effectué avec succès.");
+} catch (SQLException e) {
+    try {
+        conn.rollback(); // En cas d'erreur, annuler la transaction
+        System.out.println("La transaction a été annulée.");
+    } catch (SQLException ex) {
+        System.out.println("Erreur lors de l'annulation de la transaction : " + ex.getMessage());
+    }
+    e.printStackTrace();
+} finally {
+    try {
+        conn.setAutoCommit(true); // Restaurer le mode de commit automatique
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}

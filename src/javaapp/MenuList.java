@@ -28,20 +28,20 @@ public class MenuList<E extends Object> extends JList<E> {
         @Override
         public void mousePressed(MouseEvent me){
         if(SwingUtilities.isLeftMouseButton(me)){
-           int index = locationToIndex(me.getPoint());
-           Object o= model.getElementAt(index);
-                if(o instanceof MenuModel){
-                MenuModel menu= (MenuModel)o;
-                if(menu.getType() == MenuModel.MenuType.MENU) {
-                    selectedIndex = index;
-                    if(event != null){
-                    event.selected(index);
-                    }
-                }
-                }else{
+            int index = locationToIndex(me.getPoint());
+            Object o= model.getElementAt(index);
+            if(o instanceof MenuModel){
+            MenuModel menu= (MenuModel)o;
+            if(menu.getType() == MenuModel.MenuType.MENU) {
                 selectedIndex = index;
+                if(event != null){
+                event.selected(index);
                 }
-                repaint();
+            }
+            }else{
+            selectedIndex = index;
+            }
+            repaint();
         }
         }
          @Override

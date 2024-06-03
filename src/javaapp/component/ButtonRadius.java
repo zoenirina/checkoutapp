@@ -1,6 +1,7 @@
 package javaapp.component;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Cursor;
 
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -136,5 +137,12 @@ setBackground(color);
     super.paintComponent(g);
   } 
   
+    public void showB(){
+        setVisible(true);
+    }
+    
+    public void hideB(){
+        setVisible(false);
+    }
     
 }

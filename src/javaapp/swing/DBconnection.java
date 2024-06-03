@@ -6,28 +6,29 @@ import java.util.logging.Logger;
 
 public class DBconnection {
    private static  Connection conn = null;
-   private static String url = "jdbc:sqlite:/C://Users/ASUS/Documents/NetBeansProjects/JavaApp/caisse.db";
-//  public String user ="root";
-// public  String pwd ="";
- public DBconnection(){
-  
- }
- 
-  public static void main (String[] args){
-      
+   private static String url = "jdbc:sqlite:caisse.db";
+//   private static Connection connect;
+   
+ private DBconnection(){
+  try {
+            Class.forName("org.sqlite.JDBC");
          try {
-             Class.forName("org.sqlite.JDBC");   
- System.out.print("driver chargé!");     
-         } catch (ClassNotFoundException ex) {
-                System.out.print("driver non chargé!");
-             Logger.getLogger(DBconnection.class.getName()).log(Level.SEVERE, null, ex);
-         }
-            try {       
-      conn= DriverManager.getConnection(url);
-      System.out.print("connexion effectuée");
-     }catch (SQLException e) {
-System.out.print("echec de la connexion");
-    } 
-    
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBconnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBconnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ }
+ public static Connection getInstance(){
+    if(conn == null){
+      new DBconnection();
+    }
+    return conn;   
+  } 
+ 
+ public static void close() throws SQLException{
+ conn.close();
  }
 }
